@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        thead {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        tbody {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #b {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+    <title>Random Test Questions</title>
+</head>
+<body>
+    <h1>Test Questions Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Questions</th>
+                <th>Absorption (%)</th>
+                <th>Assimilation (%)</th>
+                <th>Appreciation (%)</th>
+                <th>Application (%)</th>
+            </tr>
+        </thead>
+        <tbody id="questionTableBody"></tbody>
+    </table>
+
+   
+    <h1>Question Time Categories</h1>
+    <table id="questionTable">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Time (seconds)</th>
+                <th>Difficulty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Add rows for each question and update the time and difficulty accordingly -->
+            <tr>
+                <td>Question 1</td>
+                <td id="timeQuestion1"></td>
+                <td id="difficultyQuestion1"></td>
+            </tr>
+            <tr>
+                <td>Question 2</td>
+                <td id="timeQuestion2"></td>
+                <td id="difficultyQuestion2"></td>
+            </tr>
+            <tr>
+                <td>Question 3</td>
+                <td id="timeQuestion3"></td>
+                <td id="difficultyQuestion3"></td>
+            </tr>
+            <tr>
+                <td>Question 4</td>
+                <td id="timeQuestion4"></td>
+                <td id="difficultyQuestion4"></td>
+            </tr>
+            <tr>
+                <td>Question 5</td>
+                <td id="timeQuestion5"></td>
+                <td id="difficultyQuestion5"></td>
+            </tr>
+            <tr>
+                <td>Question 6</td>
+                <td id="timeQuestion6"></td>
+                <td id="difficultyQuestion6"></td>
+            </tr>
+            <tr>
+                <td>Question 7</td>
+                <td id="timeQuestion7"></td>
+                <td id="difficultyQuestion7"></td>
+            </tr>
+            <tr>
+                <td>Question 8</td>
+                <td id="timeQuestion8"></td>
+                <td id="difficultyQuestion8"></td>
+            </tr>
+            <tr>
+                <td>Question 9</td>
+                <td id="timeQuestion9"></td>
+                <td id="difficultyQuestion9"></td>
+            </tr>
+            <tr>
+                <td>Question 10</td>
+                <td id="timeQuestion10"></td>
+                <td id="difficultyQuestion10"></td>
+            </tr>
+        </tbody>
+    </table>
+     <h1>Result table</h1>
+    <table class="table table-bordered w-50 h-50">
+        <thead>
+            <tr>
+                <th id="a" scope="col">Sl No</th>
+                <!-- <th id="a" scope="col">A4 Quotient</th>  -->
+                <th id="a" scope="col">Results (of 10)</th>
+                <th id="a" scope="col">Percentage(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <!-- <td>Absorption</td> -->
+                <td id="b">
+                    <span id="res1"></span>
+                    <span id="grade1"></span> 
+                </td>
+                <td id="t1"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+    <script>
+    
+       var q1= document.getElementById('timeQuestion1');
+       var q2= document.getElementById('timeQuestion2');
+       var q3= document.getElementById('timeQuestion3');
+       var q4= document.getElementById('timeQuestion4');
+       var q5= document.getElementById('timeQuestion5');
+       var q6= document.getElementById('timeQuestion6');
+       var q7= document.getElementById('timeQuestion7');
+       var q8= document.getElementById('timeQuestion8');
+       var q9= document.getElementById('timeQuestion9');
+       var q10= document.getElementById('timeQuestion10');
+    	
+       
+       q1.innerHTML = localStorage.getItem("1");
+       q2.innerHTML = localStorage.getItem("2");
+       q3.innerHTML = localStorage.getItem("3");
+       q4.innerHTML = localStorage.getItem("4");
+       q5.innerHTML = localStorage.getItem("5");
+       q6.innerHTML = localStorage.getItem("6");
+       q7.innerHTML = localStorage.getItem("7");
+       q8.innerHTML = localStorage.getItem("8");
+       q9.innerHTML = localStorage.getItem("9");
+       q10.innerHTML = localStorage.getItem("10");
+              
+       
+    // Array to store the IDs of difficulty elements
+       var difficultyElements = [
+           'difficultyQuestion1', 'difficultyQuestion2', 'difficultyQuestion3', 'difficultyQuestion4', 'difficultyQuestion5',
+           'difficultyQuestion6', 'difficultyQuestion7', 'difficultyQuestion8', 'difficultyQuestion9', 'difficultyQuestion10'
+       ];
+
+       // Loop to iterate over difficulty elements
+       for (var i = 0; i < difficultyElements.length; i++) {
+           // Get the current difficulty element
+           var currentDifficultyElement = document.getElementById(difficultyElements[i]);
+           
+           // Get the time from localStorage based on the question number
+           var currentTime = localStorage.getItem((i + 1).toString());
+           
+           // Call the updateDifficulty function for the current difficulty element and time
+        
+        	 updateDifficulty(currentDifficultyElement, currentTime);
+        	  
+           
+       }
+     
+
+       // Function to calculate and update difficulty based on the time taken
+       function updateDifficulty(difficultyElement, time) {
+           var difficulty = "";
+         
+        	   
+        		   if (time >= 21 && time <= 30) {
+                       difficultyElement.innerHTML = "Easy";
+                   } else if (time >= 11 && time <= 20) {
+                       difficultyElement.innerHTML = "MEDIUM";
+                   } else if(time>=1 && time <=10){
+                       difficultyElement.innerHTML = "DIFFICULT";
+                   }
+                   else{
+                	   difficultyElement.innerHTML = "wrong answer";
+                   }
+           
+       }
+
+      /*  var d1= document.getElementById('difficultyQuestion1');
+       var d2= document.getElementById('difficultyQuestion2');
+       var d3= document.getElementById('difficultyQuestion3');
+       var d4= document.getElementById('difficultyQuestion4');
+       var d5= document.getElementById('difficultyQuestion5');
+       var d6= document.getElementById('difficultyQuestion6');
+       var d7= document.getElementById('difficultyQuestion7');
+       var d8= document.getElementById('difficultyQuestion8');
+       var d9= document.getElementById('difficultyQuestion9');
+       var d10= document.getElementById('difficultyQuestion10');
+       
+       updateDifficulty(localStorage.getItem("1"))
+       updateDifficulty(localStorage.getItem("2"))
+       updateDifficulty(localStorage.getItem("3"))
+       updateDifficulty(localStorage.getItem("4"))
+       updateDifficulty(localStorage.getItem("5"))
+       updateDifficulty(localStorage.getItem("6"))
+       updateDifficulty(localStorage.getItem("7"))
+       updateDifficulty(localStorage.getItem("8"))
+       updateDifficulty(localStorage.getItem("9"))
+       updateDifficulty(localStorage.getItem("10")) */
+       
+       
+        // Function to calculate and update difficulty based on the time taken
+      /*   function updateDifficulty(time) {
+            var difficulty = "";
+            if (time >=21 && time <= 30) {
+                d1.innerHTML = "Easy";
+            } else if (time>= 11 && time <= 20) {
+            	d1.innerHTML = "MEDIUM";
+            } else{
+            	d1.innerHTML = "DIFFICULT";
+            } */
+/*             document.getElementById("difficultyQuestion" + questionNumber).innerHTML = difficulty;
+ */        /* } */
+
+        // Function to simulate answering a question and update the time and difficulty
+       /*  function answerQuestion(questionNumber, time) {
+            document.getElementById("timeQuestion" + questionNumber).innerHTML = time;
+            updateDifficulty(questionNumber, time);
+        } */
+
+        // Simulating answering each question with a specific time (you can modify these times)
+        /* answerQuestion(1, 15);
+        answerQuestion(2, 25);
+        answerQuestion(3, 5);
+        answerQuestion(4, 18);
+        answerQuestion(5, 30);
+        answerQuestion(6, 12);
+        answerQuestion(7, 22);
+        answerQuestion(8, 8);
+        answerQuestion(9, 28);
+        answerQuestion(10, 10); */
+                                                                       
+        // Function to generate the test questions and percentages
+        function generateTest() {
+            const questionTableBody = document.getElementById('questionTableBody');
+
+            for (let i = 1; i <= 10; i++) {
+                const ab = JSON.parse(localStorage.getItem(`ab${i}`));
+
+                if (ab) {
+                    const row = `<tr>
+                                    <td>Question ${i}</td>
+                                    <td>${ab[0]/10*100}%</td>
+                                    <td>${ab[1]/10*100}%</td>
+                                    <td>${ab[2]/10*100}%</td>
+                                    <td>${ab[3]/10*100}%</td>
+                                </tr>`;
+
+                    questionTableBody.innerHTML += row;
+                }
+            }
+        }
+
+        // Call the function to generate the test when the page loads
+        generateTest();
+
+        var ans1 = localStorage.getItem('score1');
+        
+        var h1 = document.getElementById("res1");
+        var g1 = document.getElementById("grade1");
+
+        if (ans1 == 10) {
+            h1.textContent = `${ans1}/10`;
+            g1.innerHTML = "excellent";
+        } else if (ans1 >= 8) {
+            h1.textContent = `${ans1}/10`;
+            g1.innerHTML = "very good";
+        } else if (ans1 >= 6) {
+            h1.textContent = `${ans1}/10`;
+            g1.innerHTML = "good";
+        } else if (ans1 >= 3) {
+            h1.textContent = `${ans1}/10`;
+            g1.innerHTML = "average";
+        } else {
+            h1.textContent = `${ans1}/10`;
+            g1.innerHTML = "fail";
+        }
+
+        var p1 = (ans1 / 10) * 100;
+        var t1 = document.getElementById('t1');
+        t1.textContent = `${p1}%`;
+    </script>
+</body>
+</html>
